@@ -32,7 +32,7 @@ sub new {
 sub make_cursor {
     my ($self) = @_;
     my $cursor_id = $self->{cursor_id}++;
-    return KyotoTycoon::Cursor->new($cursor_id, $self);
+    return KyotoTycoon::Cursor->new($cursor_id, $self->{db}, $self->{client});
 }
 
 sub echo {
