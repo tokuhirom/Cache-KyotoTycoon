@@ -63,11 +63,11 @@ This is TSV-RPC parser class.
 
 =item my $encoded = TSVRPC::Parser::encode_tsvrpc(\%src[, $encoding]);
 
-Encode plain hashref to tsv with $encoding.
+Encode plain hashref to TSV with $encoding.
 
 =item my $decoded = TSVRPC::Parser::decode_tsvrpc($src[, $encoding]);
 
-Decode tsv to plain hashref.
+Decode TSV to plain hashref.
 
 =back
 
@@ -81,7 +81,7 @@ Base64 Encoding
 
 =item Q
 
-QuotedPrintable Encoding
+Quoted-Printable Encoding
 
 =item U
 
