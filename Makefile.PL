@@ -5,7 +5,6 @@ all_from 'lib/KyotoTycoon.pm';
 # requires '';
 # requires 'Plack' =>  0.9949;
 
-requires 'Class::Accessor::Lite';
 requires 'LWP::UserAgent';
 requires 'URI::Escape';
 requires 'MIME::QuotedPrint';
@@ -15,7 +14,7 @@ requires 'parent';
 
 test_requires 'Test::Requires';
 test_requires 'Test::TCP';
-test_requires 'File::which';
+test_requires 'File::Which';
 
 readme_markdown_from 'lib/KyotoTycoon.pm';
 tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';

@@ -38,3 +38,62 @@ sub call {
 }
 
 1;
+__END__
+
+=head1 NAME
+
+TSVRPC::Client - TSV-RPC client library
+
+=head1 SYNOPSIS
+
+    use TSVRPC::Client;
+
+    my $t = TSVRPC::Client->new(
+        base    => 'http://localhost:1978/rpc/',
+        agent   => "myagent",
+        timeout => 1
+    );
+    $t->call('echo', {a => 'b'});
+
+=head1 DESCRIPTION
+
+The client library for TSV-RPC.
+
+=head1 METHODS
+
+=over 4
+
+=item my $t = TSVRPC::Client->new();
+
+Create new instance.
+
+=over 4
+
+=item base
+
+The base TSV-RPC end point URL.
+
+=item timeout
+
+Timeout value for each request.
+
+I<Default>: 1 second
+
+=item agent
+
+User-Agent value.
+
+=back
+
+=item $t->call($method, \%args);
+
+Call the $method with \%args.
+
+I<Return>: instance of L<TSVRPC::Response>.
+
+=back
+
+=head1 SEE ALSO
+
+L<http://fallabs.com/mikio/tech/promenade.cgi?id=97>
+

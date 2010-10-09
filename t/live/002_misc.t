@@ -29,10 +29,11 @@ test_kt(
         };
         subtest 'synchronize' => sub {
             my $got = $kt->synchronize();
-            is_deeply($got, +{});
+            is($got, 1);
         };
         subtest 'clear' => sub {
             $kt->clear();
+            ok 1;
         };
         done_testing;
     },
