@@ -2,10 +2,7 @@ use inc::Module::Install;
 name 'KyotoTycoon';
 all_from 'lib/KyotoTycoon.pm';
 
-# requires '';
-# requires 'Plack' =>  0.9949;
-
-requires 'LWP::UserAgent';
+requires 'WWW::Curl::Easy';
 requires 'URI::Escape';
 requires 'MIME::QuotedPrint';
 requires 'MIME::Base64';

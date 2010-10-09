@@ -2,11 +2,11 @@ package TSVRPC::Client;
 use strict;
 use warnings;
 use 5.008001;
-use LWP::UserAgent;
 our $VERSION = '0.01';
 use TSVRPC::Parser;
 use TSVRPC::Util;
 use TSVRPC::Response;
+use WWW::Curl::Easy;
 
 sub new {
     my $class = shift;
@@ -14,27 +14,48 @@ sub new {
 
     my $base = $args{base} or Carp::croak("missing argument named 'base' for rpc base url");
     $base .= '/' unless $base =~ m{/$};
-    my $ua = LWP::UserAgent->new(
-        timeout => exists( $args{timeout} ) ? $args{timeout} : 1,
-        agent => $args{agent} || "$class/$VERSION",
-        parse_head   => 0,
-        keep_alive   => 1,
-        max_redirect => 0,
-    );
-    return bless {ua => $ua, base => $base}, $class;
+
+    my $timeout = exists( $args{timeout} ) ? $args{timeout} : 1;
+
+    my $agent = $args{agent} || "$class/$VERSION";
+
+    my $curl = WWW::Curl::Easy->new();
+    $curl->setopt(CURLOPT_TIMEOUT, $timeout);
+    $curl->setopt(CURLOPT_USERAGENT, $agent);
+
+    return bless {curl => $curl, base => $base}, $class;
 }
 
 sub call {
     my ( $self, $method, $args ) = @_;
-    my $content      = TSVRPC::Parser::encode_tsvrpc($args);
     my $req_encoding = 'U';
-    my $req          = HTTP::Request->new(
-        POST => $self->{base} . $method,
-        [ 'Content-Type' => "text/tab-separated-values; colenc=$req_encoding" ],
-        $content
+    my $content      = TSVRPC::Parser::encode_tsvrpc($args, $req_encoding);
+    my $curl = $self->{curl};
+    $curl->setopt(CURLOPT_URL, $self->{base} . $method);
+    $curl->setopt( CURLOPT_HTTPHEADER,
+        [
+            "Content-Type: text/tab-separated-values; colenc=$req_encoding",
+            "Content-Length: " . length($content),
+            "Connection: Keep-Alive",
+            "Keep-Alive: 300",
+            "\r\n"
+        ]
     );
-    my $res = $self->{ua}->request($req);
-    return TSVRPC::Response->new($method, $res);
+    $curl->setopt(CURLOPT_CUSTOMREQUEST, "POST");
+    $curl->setopt(CURLOPT_POSTFIELDS, $content);
+    $curl->setopt(CURLOPT_HEADER, 0);
+    my $response_content = '';
+    open(my $fh, ">", \$response_content) or die "cannot open buffer";
+    $curl->setopt(CURLOPT_WRITEDATA, $fh);
+    my $content_type;
+    $curl->setopt( CURLOPT_HEADERFUNCTION,
+        sub { $content_type = $1 if $_[0] =~ /^Content-Type\s*:\s*(.+)\015\012$/; return length( $_[0] ); } );
+    if ($curl->perform() == 0) {
+        my $code = $curl->getinfo(CURLINFO_HTTP_CODE);
+        return TSVRPC::Response->new($method, $code, $content_type, $response_content);
+    } else {
+        die "invalid";
+    }
 }
 
 1;

@@ -5,22 +5,20 @@ use parent qw/Class::Accessor::Fast/;
 use TSVRPC::Util;
 use TSVRPC::Parser;
 
-__PACKAGE__->mk_ro_accessors(qw/method response_encoding body/);
+__PACKAGE__->mk_ro_accessors(qw/method response_encoding body code status_line/);
 
 # do not call this method manually.
 sub new {
-    my ($class, $method, $res) = @_;
-    my $res_encoding = TSVRPC::Util::parse_content_type( $res->content_type );
-    my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $res->content, $res_encoding ) : undef;
+    my ($class, $method, $code, $content_type, $content) = @_;
+    my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
+    my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $content, $res_encoding ) : undef;
     bless {
         body              => $body,
-        response          => $res,
         response_encoding => $res_encoding,
+        code              => $code,
+        status_line       => $code,
     }, $class;
 }
-
-sub code { $_[0]->{response}->code }
-sub status_line { $_[0]->{response}->status_line }
 
 1;
 __END__
