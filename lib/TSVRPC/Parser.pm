@@ -38,3 +38,51 @@ sub decode_tsvrpc {
 }
 
 1;
+__END__
+
+=head1 NAME
+
+TSVRPC::Parser - TSV-RPC parser
+
+=head1 SYNOPSIS
+
+    my $encoded = TSVRPC::Parser::encode_tsvrpc(\%src, 'B');
+
+    my $decoded = TSVRPC::Parser::decode_tsvrpc($src, 'B');
+
+=head1 DESCRIPTION
+
+This is TSV-RPC parser class.
+
+=head1 FUNCTIONS
+
+=over 4
+
+=item my $encoded = TSVRPC::Parser::encode_tsvrpc(\%src[, $encoding]);
+
+Encode plain hashref to tsv with $encoding.
+
+=item my $decoded = TSVRPC::Parser::decode_tsvrpc($src[, $encoding]);
+
+Decode tsv to plain hashref.
+
+=back
+
+=head1 ENCODING
+
+=over 4
+
+=item B
+
+Base64 Encoding
+
+=item Q
+
+QuotedPrintable Encoding
+
+=item U
+
+URI Escape
+
+=back
+
