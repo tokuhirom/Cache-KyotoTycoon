@@ -9,7 +9,7 @@ test_kt(
     sub {
         my $port = shift;
         my $kt = KyotoTycoon->new(port => $port);
-        my $cursor = $kt->make_cursor();
+        my $cursor = $kt->make_cursor(1);
         is $cursor->jump(), 0;
         $kt->set_bulk({a => 1, b => 2, c => 3});
         is $cursor->jump('b'), 1;

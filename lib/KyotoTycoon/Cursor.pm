@@ -100,3 +100,19 @@ sub delete {
 }
 
 1;
+__END__
+
+=head1 NAME
+
+KyotoTycoon::Cursor - Cursor class for KyotoTycoon
+
+=head1 SYNOPSIS
+
+    my $kt = KyotoTycoon->new(...);
+    my $cursor = $kt->make_cursor(1);
+    $cursor->jump();
+    while (my ($k, $v) = $cursor->get(1)) {
+        print "$k: $v";
+    }
+    $cursor->delete;
+

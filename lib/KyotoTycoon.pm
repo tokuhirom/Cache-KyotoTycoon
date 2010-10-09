@@ -23,15 +23,13 @@ sub new {
     );
     my $self = bless {
         db        => 0,
-        cursor_id => 1,
         client    => $client,
     }, $class;
     return $self;
 }
 
 sub make_cursor {
-    my ($self) = @_;
-    my $cursor_id = $self->{cursor_id}++;
+    my ($self, $cursor_id) = @_;
     return KyotoTycoon::Cursor->new($cursor_id, $self->{db}, $self->{client});
 }
 
@@ -215,11 +213,15 @@ __END__
 
 =head1 NAME
 
-KyotoTycoon -
+KyotoTycoon - KyotoTycoon client library
 
 =head1 SYNOPSIS
 
-  use KyotoTycoon;
+    use KyotoTycoon;
+
+    my $kt = KyotoTycoon->new(host => '127.0.0.1', port => 1978);
+    $kt->set('foo' => bar');
+    $kt->get('foo'); # => 'bar'
 
 =head1 DESCRIPTION
 
