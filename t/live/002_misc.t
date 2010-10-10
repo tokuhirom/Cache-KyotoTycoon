@@ -3,14 +3,14 @@ use warnings;
 use Test::More;
 use Data::Dumper;
 
-use KyotoTycoon;
+use Cache::KyotoTycoon;
 
 use t::Util;
 
 test_kt(
     sub {
         my $port = shift;
-        my $kt = KyotoTycoon->new(port => $port);
+        my $kt = Cache::KyotoTycoon->new(port => $port);
         subtest 'echo' => sub {
             my $input = {foo => 'bar', 'hoge' => 'fuga'};
             my $got = $kt->echo($input);

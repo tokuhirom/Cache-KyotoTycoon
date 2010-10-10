@@ -1,9 +1,9 @@
-package KyotoTycoon;
+package Cache::KyotoTycoon;
 use strict;
 use warnings;
 use 5.00800;
 our $VERSION = '0.01';
-use KyotoTycoon::Cursor;
+use Cache::KyotoTycoon::Cursor;
 use LWP::UserAgent;
 use TSVRPC::Client;
 
@@ -33,7 +33,7 @@ sub db {
 
 sub make_cursor {
     my ($self, $cursor_id) = @_;
-    return KyotoTycoon::Cursor->new($cursor_id, $self->{db}, $self->{client});
+    return Cache::KyotoTycoon::Cursor->new($cursor_id, $self->{db}, $self->{client});
 }
 
 sub echo {

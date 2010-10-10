@@ -1,4 +1,4 @@
-package KyotoTycoon::Cursor;
+package Cache::KyotoTycoon::Cursor;
 use strict;
 use warnings;
 

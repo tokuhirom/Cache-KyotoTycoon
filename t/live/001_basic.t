@@ -1,14 +1,14 @@
 use strict;
 use warnings;
 use Test::More;
-use KyotoTycoon;
+use Cache::KyotoTycoon;
 use t::Util;
 use Data::Dumper;
 
 test_kt(
     sub {
         my $port = shift;
-        my $kt = KyotoTycoon->new(port => $port);
+        my $kt = Cache::KyotoTycoon->new(port => $port);
         subtest 'set, get, remove' => sub {
             is $kt->get("test"), undef, 'not found';
             $kt->set("test", 'ok');

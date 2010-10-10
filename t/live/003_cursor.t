@@ -1,14 +1,14 @@
 use strict;
 use warnings;
 use Test::More;
-use KyotoTycoon;
+use Cache::KyotoTycoon;
 use t::Util;
 use Data::Dumper;
 
 test_kt(
     sub {
         my $port = shift;
-        my $kt = KyotoTycoon->new(port => $port);
+        my $kt = Cache::KyotoTycoon->new(port => $port);
         my $cursor = $kt->make_cursor(1);
         is $cursor->jump(), 0;
         $kt->set_bulk({a => 1, b => 2, c => 3});
