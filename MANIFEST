@@ -11,9 +11,8 @@ inc/Module/Install/ReadmeMarkdownFromPod.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Pod/Markdown.pm
-lib/KyotoTycoon.pm
-lib/KyotoTycoon/Cursor.pm
-lib/perltidy.ERR
+lib/Cache/KyotoTycoon.pm
+lib/Cache/KyotoTycoon/Cursor.pm
 lib/TSVRPC/Client.pm
 lib/TSVRPC/Parser.pm
 lib/TSVRPC/Response.pm

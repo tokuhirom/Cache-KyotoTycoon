@@ -1,4 +1,8 @@
-Revision history for Perl extension KyotoTycoon
+Revision history for Perl extension Cache::KyotoTycoon
+
+0.02
+
+        - change namespace to Cache::KyotoTycoon
 
 0.01    Fri Oct  8 19:18:17 2010
         - original version
