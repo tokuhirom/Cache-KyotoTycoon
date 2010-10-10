@@ -231,6 +231,8 @@ KyotoTycoon - KyotoTycoon client library
 
 KyotoTycoon.pm is L<KyotoTycoon|http://fallabs.com/kyototycoon/> client library for Perl5.
 
+B<THIS MODULE IS IN ITS BETA QUALITY. THE API MAY CHANGE IN THE FUTURE>.
+
 =head1 ERROR HANDLING POLICY
 
 This module throws exception if got B<Server Error>.
