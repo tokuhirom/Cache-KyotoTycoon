@@ -114,11 +114,11 @@ User-Agent value.
 
 =back
 
-=item $t->call($method, \%args);
+=item my ($code, $status_line, $body) = $t->call($method, \%args);
 
 Call the $method with \%args.
 
-I<Return>: instance of L<TSVRPC::Response>.
+I<Return>: $code: HTTP status code, $status_line: HTTP status line, $body: body hashref.
 
 =back
 
