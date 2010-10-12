@@ -17,6 +17,11 @@ test_kt(
             is $kt->get("test"), undef;
             is $kt->remove("test", 'ok'), 0;
         };
+        subtest 'binary' => sub {
+            is $kt->get("te\x00st"), undef, 'not found';
+            $kt->set("te\x00st", "o\x015\x00k");
+            is $kt->get("te\x00st"), "o\x015\x00k";
+        };
         subtest 'add' => sub {
             is $kt->add("add_t1", 'ok'), 1;
             is $kt->get("add_t1"), "ok";
