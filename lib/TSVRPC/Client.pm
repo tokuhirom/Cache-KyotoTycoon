@@ -5,7 +5,7 @@ use 5.008001;
 our $VERSION = '0.01';
 use TSVRPC::Parser;
 use TSVRPC::Util;
-use TSVRPC::Response;
+
 use WWW::Curl::Easy;
 
 sub new {
@@ -58,7 +58,9 @@ sub call {
     );
     if ($curl->perform() == 0) {
         my $code = $curl->getinfo(CURLINFO_HTTP_CODE);
-        return TSVRPC::Response->new($method, $code, $status_line, $content_type, $response_content);
+        my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
+        my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $response_content, $res_encoding ) : undef;
+        return ($code, $status_line, $body);
     } else {
         die "invalid";
     }

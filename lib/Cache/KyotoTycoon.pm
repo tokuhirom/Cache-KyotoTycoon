@@ -37,32 +37,32 @@ sub make_cursor {
 
 sub echo {
     my ($self, $args) = @_;
-    my $res = $self->{client}->call('echo', $args);
-    die $res->status_line if $res->code ne 200;
-    return $res->body;
+    my ($code, $status_line, $body) = $self->{client}->call('echo', $args);
+    die $status_line if $code ne 200;
+    return $body;
 }
 
 sub report {
     my ($self, ) = @_;
-    my $res = $self->{client}->call('report');
-    die $res->status_line if $res->code ne 200;
-    return $res->body;
+    my ($code, $status_line, $body) = $self->{client}->call('report');
+    die $status_line if $code ne 200;
+    return $body;
 }
 
 sub play_script { die "play_script: not implemented yet" }
 
 sub status {
     my ($self, ) = @_;
-    my $res = $self->{client}->call('status', {DB => $self->db});
-    die $res->status_line unless $res->code eq 200;
-    return $res->body;
+    my ($code, $status_line, $body) = $self->{client}->call('status', {DB => $self->db});
+    die $status_line unless $code eq 200;
+    return $body;
 }
 
 sub clear {
     my ($self, ) = @_;
     my %args = (DB => $self->db);
-    my $res = $self->{client}->call('clear', \%args);
-    die $res->status_line unless $res->code eq 200;
+    my ($code, $status_line, $body) = $self->{client}->call('clear', \%args);
+    die $status_line unless $code eq 200;
     return;
 }
 
@@ -71,18 +71,18 @@ sub synchronize {
     my %args = (DB => $self->db);
     $args{hard} = $hard if $hard;
     $args{command} = $command if defined $command;
-    my $res = $self->{client}->call('synchronize', \%args);
-    return 1 if $res->code eq 200;
-    return 0 if $res->code eq 450;
-    die $res->status_line;
+    my ($code, $status_line, $body) = $self->{client}->call('synchronize', \%args);
+    return 1 if $code eq 200;
+    return 0 if $code eq 450;
+    die $status_line;
 }
 
 sub set {
     my ($self, $key, $value, $xt) = @_;
     my %args = (DB => $self->db, key => $key, value => $value);
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('set', \%args);
-    die $res->status_line unless $res->code eq 200;
+    my ($code, $status_line, $body) = $self->{client}->call('set', \%args);
+    die $status_line unless $code eq 200;
     return;
 }
 
@@ -90,28 +90,28 @@ sub add {
     my ($self, $key, $value, $xt) = @_;
     my %args = (DB => $self->db, key => $key, value => $value);
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('add', \%args);
-    return 1 if $res->code eq '200';
-    return 0 if $res->code eq '450';
-    die $res->status_line;
+    my ($code, $status_line, $body) = $self->{client}->call('add', \%args);
+    return 1 if $code eq '200';
+    return 0 if $code eq '450';
+    die $status_line;
 }
 
 sub replace {
     my ($self, $key, $value, $xt) = @_;
     my %args = (DB => $self->db, key => $key, value => $value);
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('replace', \%args);
-    return 1 if $res->code eq '200';
-    return 0 if $res->code eq '450';
-    die $res->status_line;
+    my ($code, $status_line, $body) = $self->{client}->call('replace', \%args);
+    return 1 if $code eq '200';
+    return 0 if $code eq '450';
+    die $status_line;
 }
 
 sub append {
     my ($self, $key, $value, $xt) = @_;
     my %args = (DB => $self->db, key => $key, value => $value);
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('append', \%args);
-    die $res->status_line unless $res->code eq '200';
+    my ($code, $status_line, $body) = $self->{client}->call('append', \%args);
+    die $status_line unless $code eq '200';
     return;
 }
 
@@ -119,18 +119,18 @@ sub increment {
     my ($self, $key, $num, $xt) = @_;
     my %args = (DB => $self->db, key => $key, num => $num);
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('increment', \%args);
-    die $res->status_line unless $res->code eq '200';
-    return $res->body->{num};
+    my ($code, $status_line, $body) = $self->{client}->call('increment', \%args);
+    die $status_line unless $code eq '200';
+    return $body->{num};
 }
 
 sub increment_double {
     my ($self, $key, $num, $xt) = @_;
     my %args = (DB => $self->db, key => $key, num => $num);
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('increment_double', \%args);
-    die $res->status_line unless $res->code eq '200';
-    return $res->body->{num};
+    my ($code, $status_line, $body) = $self->{client}->call('increment_double', \%args);
+    die $status_line unless $code eq '200';
+    return $body->{num};
 }
 
 sub cas {
@@ -139,31 +139,31 @@ sub cas {
     $args{oval} = $oval if defined $oval;
     $args{nval} = $nval if defined $nval;
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('cas', \%args);
-    return 1 if $res->code eq '200';
-    return 0 if $res->code eq '450';
-    die $res->status_line;
+    my ($code, $status_line, $body) = $self->{client}->call('cas', \%args);
+    return 1 if $code eq '200';
+    return 0 if $code eq '450';
+    die $status_line;
 }
 
 sub remove {
     my ($self, $key) = @_;
     my %args = (DB => $self->db, key => $key);
-    my $res = $self->{client}->call('remove', \%args);
-    return 1 if $res->code eq '200';
-    return 0 if $res->code eq '450';
-    die $res->status_line;
+    my ($code, $status_line, $body) = $self->{client}->call('remove', \%args);
+    return 1 if $code eq '200';
+    return 0 if $code eq '450';
+    die $status_line;
 }
 
 sub get {
     my ($self, $key) = @_;
     my %args = (DB => $self->db, key => $key);
-    my $res = $self->{client}->call('get', \%args);
-    if ($res->code eq 450) {
+    my ($code, $status_line, $body) = $self->{client}->call('get', \%args);
+    if ($code eq 450) {
         return undef; # no value for key
-    } elsif ($res->code eq 200) {
-        return $res->body->{value};
+    } elsif ($code eq 200) {
+        return $body->{value};
     } else {
-        die $res->status_line;
+        die $status_line;
     }
 }
 
@@ -174,9 +174,9 @@ sub set_bulk {
         $args{"_$k"} = $v;
     }
     $args{xt} = $xt if defined $xt;
-    my $res = $self->{client}->call('set_bulk', \%args);
-    die $res->status_line unless $res->code eq '200';
-    return $res->body->{num};
+    my ($code, $status_line, $body) = $self->{client}->call('set_bulk', \%args);
+    die $status_line unless $code eq '200';
+    return $body->{num};
 }
 
 sub remove_bulk {
@@ -185,9 +185,9 @@ sub remove_bulk {
     for my $k (@$keys) {
         $args{"_$k"} = '';
     }
-    my $res = $self->{client}->call('remove_bulk', \%args);
-    die $res->status_line unless $res->code eq '200';
-    return $res->body->{num};
+    my ($code, $status_line, $body) = $self->{client}->call('remove_bulk', \%args);
+    die $status_line unless $code eq '200';
+    return $body->{num};
 }
 
 sub get_bulk {
@@ -196,9 +196,8 @@ sub get_bulk {
     for my $k (@$keys) {
         $args{"_$k"} = '';
     }
-    my $res = $self->{client}->call('get_bulk', \%args);
-    die $res->status_line unless $res->code eq '200';
-    my $body = $res->body;
+    my ($code, $status_line, $body) = $self->{client}->call('get_bulk', \%args);
+    die $status_line unless $code eq '200';
     my %ret;
     while (my ($k, $v) = each %$body) {
         if ($k =~ /^_(.+)$/) {
