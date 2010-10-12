@@ -109,7 +109,7 @@ __END__
 
 =head1 NAME
 
-KyotoTycoon::Cursor - Cursor class for KyotoTycoon
+Cache::KyotoTycoon::Cursor - Cursor class for KyotoTycoon
 
 =head1 SYNOPSIS
 
