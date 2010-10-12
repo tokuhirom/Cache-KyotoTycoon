@@ -4,7 +4,6 @@ use warnings;
 use 5.00800;
 our $VERSION = '0.02';
 use Cache::KyotoTycoon::Cursor;
-use LWP::UserAgent;
 use TSVRPC::Client;
 
 sub new {
