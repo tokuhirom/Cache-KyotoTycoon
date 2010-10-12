@@ -1,5 +1,11 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.04
+
+        - default encoding for TSVRPC is Base64.
+        - added benchmark code.
+        - fixed docs
+
 0.03
 
         - [INCOMPATIBLE CHANGE] TSVRPC::Client->call() now returns plain array instead of TSVRPC::Response for better performance.

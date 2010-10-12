@@ -1,4 +1,7 @@
 .gitignore
+benchmarks/escape.pl
+benchmarks/profile-get.pl
+benchmarks/simple.pl
 Changes
 inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm
