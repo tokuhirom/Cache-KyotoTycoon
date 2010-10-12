@@ -9,14 +9,15 @@ __PACKAGE__->mk_ro_accessors(qw/method response_encoding body code status_line/)
 
 # do not call this method manually.
 sub new {
-    my ($class, $method, $code, $content_type, $content) = @_;
+    my ($class, $method, $code, $status_line, $content_type, $content) = @_;
     my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
     my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $content, $res_encoding ) : undef;
     bless {
+        method            => $method,
         body              => $body,
         response_encoding => $res_encoding,
         code              => $code,
-        status_line       => $code,
+        status_line       => $status_line,
     }, $class;
 }
 

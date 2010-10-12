@@ -48,11 +48,17 @@ sub call {
     open(my $fh, ">", \$response_content) or die "cannot open buffer";
     $curl->setopt(CURLOPT_WRITEDATA, $fh);
     my $content_type;
+    my $status_line;
     $curl->setopt( CURLOPT_HEADERFUNCTION,
-        sub { $content_type = $1 if $_[0] =~ /^Content-Type\s*:\s*(.+)\015\012$/; return length( $_[0] ); } );
+        sub {
+            $status_line  = $1 if $_[0] =~ m{^HTTP/1\.1 (.+)\015\012$};
+            $content_type = $1 if $_[0] =~ m{^Content-Type\s*:\s*(.+)\015\012$};
+            return length( $_[0] );
+        }
+    );
     if ($curl->perform() == 0) {
         my $code = $curl->getinfo(CURLINFO_HTTP_CODE);
-        return TSVRPC::Response->new($method, $code, $content_type, $response_content);
+        return TSVRPC::Response->new($method, $code, $status_line, $content_type, $response_content);
     } else {
         die "invalid";
     }
