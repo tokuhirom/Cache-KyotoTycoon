@@ -1,5 +1,10 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.03
+
+        - [INCOMPATIBLE CHANGE] TSVRPC::Client->call() now returns plain array instead of TSVRPC::Response for better performance.
+        - remove fucking unused code.
+
 0.02
 
         - change namespace to Cache::KyotoTycoon

@@ -15,7 +15,6 @@ lib/Cache/KyotoTycoon.pm
 lib/Cache/KyotoTycoon/Cursor.pm
 lib/TSVRPC/Client.pm
 lib/TSVRPC/Parser.pm
-lib/TSVRPC/Response.pm
 lib/TSVRPC/Util.pm
 Makefile.PL
 MANIFEST			This list of files
