@@ -31,7 +31,7 @@ sub call {
     $req_encoding ||= 'B'; # default encoding is base64. because base64 is very fast.
     my $content      = TSVRPC::Parser::encode_tsvrpc($args, $req_encoding);
     my $curl = $self->{curl};
-    $curl->setopt(CURLOPT_URL, $self->{base} . $method);
+    $curl->setopt( CURLOPT_URL, $self->{base} . $method );
     $curl->setopt( CURLOPT_HTTPHEADER,
         [
             "Content-Type: text/tab-separated-values; colenc=$req_encoding",
@@ -41,12 +41,12 @@ sub call {
             "\r\n"
         ]
     );
-    $curl->setopt(CURLOPT_CUSTOMREQUEST, "POST");
-    $curl->setopt(CURLOPT_POSTFIELDS, $content);
-    $curl->setopt(CURLOPT_HEADER, 0);
+    $curl->setopt( CURLOPT_CUSTOMREQUEST, "POST" );
+    $curl->setopt( CURLOPT_POSTFIELDS,    $content );
+    $curl->setopt( CURLOPT_HEADER,        0 );
     my $response_content = '';
-    open(my $fh, ">", \$response_content) or die "cannot open buffer";
-    $curl->setopt(CURLOPT_WRITEDATA, $fh);
+    open( my $fh, ">", \$response_content ) or die "cannot open buffer";
+    $curl->setopt( CURLOPT_WRITEDATA, $fh );
     my $content_type;
     my $status_line;
     $curl->setopt( CURLOPT_HEADERFUNCTION,
@@ -56,13 +56,14 @@ sub call {
             return length( $_[0] );
         }
     );
-    if ($curl->perform() == 0) {
+    my $retcode = $curl->perform();
+    if ($retcode == 0) {
         my $code = $curl->getinfo(CURLINFO_HTTP_CODE);
         my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
         my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $response_content, $res_encoding ) : undef;
         return ($code, $status_line, $body);
     } else {
-        die "invalid";
+        die $curl->strerror($retcode);
     }
 }
 
