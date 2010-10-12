@@ -1,7 +1,7 @@
 package TSVRPC::Parser;
 use strict;
 use warnings;
-use parent qw/Exporter/;
+use base qw/Exporter/;
 use URI::Escape qw/uri_escape uri_unescape/;
 use MIME::QuotedPrint qw/encode_qp decode_qp/;
 use MIME::Base64 qw/encode_base64 decode_base64/;

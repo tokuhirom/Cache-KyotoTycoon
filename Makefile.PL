@@ -6,9 +6,7 @@ requires 'WWW::Curl::Easy';
 requires 'URI::Escape';
 requires 'MIME::QuotedPrint';
 requires 'MIME::Base64';
-requires 'Exporter' => 5.63; # use Exporter 'import';
-requires 'parent';
-requires 'Class::Accessor::Fast';
+requires 'Exporter';
 
 test_requires 'Test::Requires';
 test_requires 'Test::TCP';
