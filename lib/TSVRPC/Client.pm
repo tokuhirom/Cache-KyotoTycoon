@@ -27,8 +27,8 @@ sub new {
 }
 
 sub call {
-    my ( $self, $method, $args ) = @_;
-    my $req_encoding = 'U';
+    my ( $self, $method, $args, $req_encoding ) = @_;
+    $req_encoding ||= 'B'; # default encoding is base64. because base64 is very fast.
     my $content      = TSVRPC::Parser::encode_tsvrpc($args, $req_encoding);
     my $curl = $self->{curl};
     $curl->setopt(CURLOPT_URL, $self->{base} . $method);
@@ -114,9 +114,15 @@ User-Agent value.
 
 =back
 
-=item my ($code, $status_line, $body) = $t->call($method, \%args);
+=item my ($code, $status_line, $body) = $t->call($method[, \%args[, $encoding]]);
 
 Call the $method with \%args.
+
+I<$encoding>: the encoding for TSVRPC call. Following methods are available.
+
+    B: Base64(Default)
+    Q: Quoted-Printable
+    U: URI escape
 
 I<Return>: $code: HTTP status code, $status_line: HTTP status line, $body: body hashref.
 
