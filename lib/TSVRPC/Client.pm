@@ -120,7 +120,7 @@ Call the $method with \%args.
 
 I<$encoding>: the encoding for TSVRPC call. Following methods are available.
 
-    B: Base64(Default)
+    B: Base64(Default. Because its very fast)
     Q: Quoted-Printable
     U: URI escape
 
