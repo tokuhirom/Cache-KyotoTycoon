@@ -75,7 +75,7 @@ sub new {
     my $port = $args{port} || 1978;
     my $base = "http://${host}:${port}/rpc/";
     my $client = TSVRPC::Client->new(
-        timeout    => defined( $args{timeout} ) ? $args{timeout} : 1,
+        timeout    => exists( $args{timeout} ) ? $args{timeout} : 1,
         base       => $base,
     );
     my $self = bless {
