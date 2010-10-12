@@ -6,6 +6,7 @@ our $VERSION = '0.06';
 use Cache::KyotoTycoon::Cursor;
 use TSVRPC::Client;
 
+# taken from HTTP::Status
 my %STATUS_CODE = (
     100 => 'Continue',
     101 => 'Switching Protocols',
