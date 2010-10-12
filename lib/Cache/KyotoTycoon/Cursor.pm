@@ -12,38 +12,38 @@ sub jump {
     my ($self, $key) = @_;
     my %args = (DB => $self->{db}, CUR => $self->{cursor});
     $args{key} = $key if defined $key;
-    my ($code, $status_line, $body) = $self->{client}->call('cur_jump', \%args);
+    my ($code, $body) = $self->{client}->call('cur_jump', \%args);
     return 1 if $code eq 200;
     return 0 if $code eq 450;
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub jump_back {
     my ($self, $key) = @_;
     my %args = (DB => $self->{db}, CUR => $self->{cursor});
     $args{key} = $key if defined $key;
-    my ($code, $status_line, $body) = $self->{client}->call('cur_jump_back', \%args);
+    my ($code, $body) = $self->{client}->call('cur_jump_back', \%args);
     return 1 if $code eq 200;
     return 0 if $code eq 450;
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub step {
     my ($self, ) = @_;
     my %args = (CUR => $self->{cursor});
-    my ($code, $status_line, $body) = $self->{client}->call('cur_step', \%args);
+    my ($code, $body) = $self->{client}->call('cur_step', \%args);
     return 1 if $code eq '200';
     return 0 if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub step_back {
     my ($self, ) = @_;
     my %args = (CUR => $self->{cursor});
-    my ($code, $status_line, $body) = $self->{client}->call('cur_step_back', \%args);
+    my ($code, $body) = $self->{client}->call('cur_step_back', \%args);
     return 1 if $code eq '200';
     return 0 if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub set_value {
@@ -51,57 +51,57 @@ sub set_value {
     my %args = (CUR => $self->{cursor}, value => $value);
     $args{xt} = $xt if defined $xt;
     $args{step} = '' if defined $step;
-    my ($code, $status_line, $body) = $self->{client}->call('cur_set_value', \%args);
+    my ($code, $body) = $self->{client}->call('cur_set_value', \%args);
     return 1 if $code eq '200';
     return 0 if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub remove {
     my ($self,) = @_;
     my %args = (CUR => $self->{cursor});
-    my ($code, $status_line, $body) = $self->{client}->call('cur_remove', \%args);
+    my ($code, $body) = $self->{client}->call('cur_remove', \%args);
     return 1 if $code eq '200';
     return 0 if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub get_key {
     my ($self, $step) = @_;
     my %args = (CUR => $self->{cursor});
     $args{step} = '' if defined $step;
-    my ($code, $status_line, $body) = $self->{client}->call('cur_get_key', \%args);
+    my ($code, $body) = $self->{client}->call('cur_get_key', \%args);
     return $body->{key} if $code eq '200';
     return if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub get_value {
     my ($self, $step) = @_;
     my %args = (CUR => $self->{cursor});
     $args{step} = '' if defined $step;
-    my ($code, $status_line, $body) = $self->{client}->call('cur_get_value', \%args);
+    my ($code, $body) = $self->{client}->call('cur_get_value', \%args);
     return $body->{value} if $code eq '200';
     return if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub get {
     my ($self, $step) = @_;
     my %args = (CUR => $self->{cursor});
     $args{step} = '' if defined $step;
-    my ($code, $status_line, $body) = $self->{client}->call('cur_get', \%args);
+    my ($code, $body) = $self->{client}->call('cur_get', \%args);
     return ($body->{key}, $body->{value}) if $code eq '200';
     return if $code eq '450';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 sub delete {
     my ($self, ) = @_;
     my %args = (CUR => $self->{cursor});
-    my ($code, $status_line, $body) = $self->{client}->call('cur_delete', \%args);
+    my ($code, $body) = $self->{client}->call('cur_delete', \%args);
     return if $code eq '200';
-    die $status_line;
+    die Cache::KyotoTycoon::_errmsg($code);
 }
 
 1;

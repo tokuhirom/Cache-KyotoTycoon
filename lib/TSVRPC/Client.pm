@@ -47,21 +47,13 @@ sub call {
     my $response_content = '';
     open( my $fh, ">", \$response_content ) or die "cannot open buffer";
     $curl->setopt( CURLOPT_WRITEDATA, $fh );
-    my $content_type;
-    my $status_line;
-    $curl->setopt( CURLOPT_HEADERFUNCTION,
-        sub {
-            $status_line  = $1 if $_[0] =~ m{^HTTP/1\.1 (.+)\015\012$};
-            $content_type = $1 if $_[0] =~ m{^Content-Type\s*:\s*(.+)\015\012$};
-            return length( $_[0] );
-        }
-    );
     my $retcode = $curl->perform();
     if ($retcode == 0) {
         my $code = $curl->getinfo(CURLINFO_HTTP_CODE);
+        my $content_type = $curl->getinfo(CURLINFO_CONTENT_TYPE);
         my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
         my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $response_content, $res_encoding ) : undef;
-        return ($code, $status_line, $body);
+        return ($code, $body);
     } else {
         die $curl->strerror($retcode);
     }
@@ -115,7 +107,7 @@ User-Agent value.
 
 =back
 
-=item my ($code, $status_line, $body) = $t->call($method[, \%args[, $encoding]]);
+=item my ($code, $body) = $t->call($method[, \%args[, $encoding]]);
 
 Call the $method with \%args.
 
@@ -125,7 +117,7 @@ I<$encoding>: the encoding for TSVRPC call. Following methods are available.
     Q: Quoted-Printable
     U: URI escape
 
-I<Return>: $code: HTTP status code, $status_line: HTTP status line, $body: body hashref.
+I<Return>: $code: HTTP status code, $body: body hashref.
 
 =back
 

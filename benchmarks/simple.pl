@@ -7,7 +7,7 @@ my $kt = Cache::KyotoTycoon->new();
 $kt->set('foo' => 'bar');
 die unless $kt->get('foo') eq 'bar';
 timethese(
-    10000 => +{
+    50000 => +{
         echo => sub {
             $kt->echo(+{});
         },
