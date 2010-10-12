@@ -1,6 +1,6 @@
 # NAME
 
-KyotoTycoon - KyotoTycoon client library
+Cache::KyotoTycoon - KyotoTycoon client library
 
 # SYNOPSIS
 

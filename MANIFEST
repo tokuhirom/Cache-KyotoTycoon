@@ -2,6 +2,7 @@
 benchmarks/escape.pl
 benchmarks/profile-get.pl
 benchmarks/simple.pl
+benchmarks/with-rest.pl
 Changes
 inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm

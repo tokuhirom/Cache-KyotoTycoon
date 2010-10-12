@@ -2,7 +2,7 @@ package Cache::KyotoTycoon;
 use strict;
 use warnings;
 use 5.00800;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 use Cache::KyotoTycoon::Cursor;
 use TSVRPC::Client;
 
@@ -215,7 +215,7 @@ __END__
 
 =head1 NAME
 
-KyotoTycoon - KyotoTycoon client library
+Cache::KyotoTycoon - KyotoTycoon client library
 
 =head1 SYNOPSIS
 

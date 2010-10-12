@@ -1,5 +1,9 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.05
+
+        - better error message on TSVRPC::Client.
+
 0.04
 
         - default encoding for TSVRPC is Base64.
