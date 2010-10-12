@@ -1,5 +1,10 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.06
+
+        - - [INCOMPATIBLE CHANGE] TSVRPC::Client->call() is no longer returns status_line
+        - micro optimization around curl.
+
 0.05
 
         - better error message on TSVRPC::Client.
