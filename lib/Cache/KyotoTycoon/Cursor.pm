@@ -113,7 +113,9 @@ Cache::KyotoTycoon::Cursor - Cursor class for KyotoTycoon
 
 =head1 SYNOPSIS
 
-    my $kt = KyotoTycoon->new(...);
+    use Cache::KyotoTycoon;
+
+    my $kt = Cache::KyotoTycoon->new(...);
     my $cursor = $kt->make_cursor(1);
     $cursor->jump();
     while (my ($k, $v) = $cursor->get(1)) {
