@@ -281,9 +281,9 @@ Cache::KyotoTycoon - KyotoTycoon client library
 
 =head1 SYNOPSIS
 
-    use KyotoTycoon;
+    use Cache::KyotoTycoon;
 
-    my $kt = KyotoTycoon->new(host => '127.0.0.1', port => 1978);
+    my $kt = Cache::KyotoTycoon->new(host => '127.0.0.1', port => 1978);
     $kt->set('foo' => bar');
     $kt->get('foo'); # => 'bar'
 
