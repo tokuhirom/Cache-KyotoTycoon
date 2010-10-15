@@ -270,6 +270,17 @@ sub get_bulk {
     return wantarray ? %ret : \%ret;
 }
 
+sub vacuum {
+    my ($self, $step) = @_;
+    my %args = (DB => $self->db);
+    if (defined $step) {
+        $args{step} = $step;
+    }
+    my ($code, $body) = $self->{client}->call('vacuum', \%args);
+    die _errmsg($code) unless $code eq '200';
+    return;
+}
+
 1;
 __END__
 
@@ -458,6 +469,14 @@ I<Return>: not useful value.
 Get multiple values in one time.
 
 I<Return>: records in hashref.
+
+=item $kt->vacuum([$step]);
+
+Scan the database and eliminate regions of expired records.
+
+I<input>: step: (optional): the number of steps. If it is omitted or not more than 0, the whole region is scanned.
+
+I<Return>: not useful.
 
 =back
 

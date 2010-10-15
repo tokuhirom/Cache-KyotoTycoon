@@ -31,6 +31,11 @@ test_kt(
             my $got = $kt->synchronize();
             is($got, 1);
         };
+        subtest 'vacuum' => sub {
+            $kt->vacuum();
+            $kt->vacuum(1);
+            ok 1;
+        };
         subtest 'clear' => sub {
             $kt->clear();
             ok 1;
