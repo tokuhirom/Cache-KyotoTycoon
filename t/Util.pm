@@ -9,13 +9,14 @@ our @EXPORT = qw/test_kt/;
 
 sub test_kt {
     my $cb = shift;
+    my $server_cb = shift;
 
     my $ktserver = scalar(which 'ktserver');
     plan skip_all => 'This test requires "ktserver"' unless $ktserver;
 
     test_tcp(
         client => $cb,
-        server => sub {
+        server => $server_cb ? sub { $server_cb->(shift, $ktserver) } : sub {
             my $port = shift;
             exec $ktserver, '-port', $port;
             die "cannot exec ktserver";

@@ -111,7 +111,21 @@ sub report {
     return $body;
 }
 
-sub play_script { die "play_script: not implemented yet" }
+sub play_script {
+    my ($self, $name, $input) = @_;
+    my %args = (name => $name);
+    while (my ($k, $v) = each %$input) {
+        $args{"_$k"} = $v;
+    }
+    my ($code, $body) = $self->{client}->call('play_script', \%args);
+    die _errmsg($code) if $code ne 200;
+    my %res;
+    while (my ($k, $v) = each %$body) {
+        $k =~ s!^_!!;
+        $res{$k} = $v;
+    }
+    return \%res;
+}
 
 sub status {
     my ($self, ) = @_;
@@ -364,9 +378,14 @@ Get server report.
 
 I<Return>: server status information in hashref.
 
-=item $kt->play_script
+=item my $output = $kt->play_script($name[, \%input]);
 
-I<Not Implemented Yet>.
+Call a procedure of the script language extension.
+
+I<$name>: the name of the procedure to call.
+I<\%input>: (optional): arbitrary records.
+
+I<Return>: resonse of the script in hashref.
 
 =item my $info = $kt->status()
 
