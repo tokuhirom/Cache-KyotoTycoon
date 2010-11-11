@@ -70,9 +70,14 @@ Get server report.
 
 _Return_: server status information in hashref.
 
-- $kt->play_script
+- my $output = $kt->play_script($name[, \%input]);
 
-_Not Implemented Yet_.
+Call a procedure of the script language extension.
+
+_$name_: the name of the procedure to call.
+_\%input_: (optional): arbitrary records.
+
+_Return_: resonse of the script in hashref.
 
 - my $info = $kt->status()
 
@@ -175,6 +180,14 @@ _Return_: not useful value.
 Get multiple values in one time.
 
 _Return_: records in hashref.
+
+- $kt->vacuum([$step]);
+
+Scan the database and eliminate regions of expired records.
+
+_input_: step: (optional): the number of steps. If it is omitted or not more than 0, the whole region is scanned.
+
+_Return_: not useful.
 
 # AUTHOR
 
