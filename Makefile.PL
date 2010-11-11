@@ -2,7 +2,6 @@ use inc::Module::Install;
 name 'Cache-KyotoTycoon';
 all_from 'lib/Cache/KyotoTycoon.pm';
 
-requires 'WWW::Curl::Easy';
 requires 'URI::Escape';
 requires 'MIME::QuotedPrint';
 requires 'MIME::Base64';

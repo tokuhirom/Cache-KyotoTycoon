@@ -5,8 +5,7 @@ use 5.008001;
 our $VERSION = '0.01';
 use TSVRPC::Parser;
 use TSVRPC::Util;
-
-use WWW::Curl::Easy;
+use Furl::HTTP qw/HEADERS_NONE/;
 
 sub new {
     my $class = shift;
@@ -19,44 +18,35 @@ sub new {
 
     my $agent = $args{agent} || "$class/$VERSION";
 
-    my $curl = WWW::Curl::Easy->new();
-    $curl->setopt(CURLOPT_TIMEOUT, $timeout);
-    $curl->setopt(CURLOPT_USERAGENT, $agent);
+    my $furl = Furl::HTTP->new(
+        timeout       => $timeout,
+        useragent     => $agent,
+        header_format => HEADERS_NONE,
+    );
 
-    return bless {curl => $curl, base => $base}, $class;
+    return bless {furl => $furl, base => $base}, $class;
 }
 
 sub call {
     my ( $self, $method, $args, $req_encoding ) = @_;
     $req_encoding ||= 'B'; # default encoding is base64. because base64 is very fast.
     my $content      = TSVRPC::Parser::encode_tsvrpc($args, $req_encoding);
-    my $curl = $self->{curl};
-    $curl->setopt( CURLOPT_URL, $self->{base} . $method );
-    $curl->setopt( CURLOPT_HTTPHEADER,
-        [
-            "Content-Type: text/tab-separated-values; colenc=$req_encoding",
-            "Content-Length: " . length($content),
-            "Connection: Keep-Alive",
-            "Keep-Alive: 300",
-            "\r\n"
-        ]
+    my $furl = $self->{furl};
+    my %special_headers;
+    my ( $minor_version, $code, $msg, $headers, $body ) = $furl->request(
+        url     => $self->{base} . $method,
+        headers => [
+            "Content-Type" => "text/tab-separated-values; colenc=$req_encoding",
+            "Content-Length" => length($content),
+        ],
+        method          => 'POST',
+        content         => $content,
+        special_headers => \%special_headers,
     );
-    $curl->setopt( CURLOPT_CUSTOMREQUEST, "POST" );
-    $curl->setopt( CURLOPT_POSTFIELDS,    $content );
-    $curl->setopt( CURLOPT_HEADER,        0 );
-    my $response_content = '';
-    open( my $fh, ">", \$response_content ) or die "cannot open buffer";
-    $curl->setopt( CURLOPT_WRITEDATA, $fh );
-    my $retcode = $curl->perform();
-    if ($retcode == 0) {
-        my $code = $curl->getinfo(CURLINFO_HTTP_CODE);
-        my $content_type = $curl->getinfo(CURLINFO_CONTENT_TYPE);
-        my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
-        my $body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $response_content, $res_encoding ) : undef;
-        return ($code, $body);
-    } else {
-        die $curl->strerror($retcode);
-    }
+    my $content_type = $special_headers{'content-type'};
+    my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
+    my $dedoded_body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $body, $res_encoding ) : undef;
+    return ($code, $dedoded_body);
 }
 
 1;
