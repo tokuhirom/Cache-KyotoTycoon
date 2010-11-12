@@ -385,7 +385,7 @@ Call a procedure of the script language extension.
 I<$name>: the name of the procedure to call.
 I<\%input>: (optional): arbitrary records.
 
-I<Return>: resonse of the script in hashref.
+I<Return>: response of the script in hashref.
 
 =item my $info = $kt->status()
 
