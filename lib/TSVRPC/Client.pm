@@ -32,7 +32,7 @@ sub call {
     $req_encoding ||= 'B'; # default encoding is base64. because base64 is very fast.
     my $content      = TSVRPC::Parser::encode_tsvrpc($args, $req_encoding);
     my $furl = $self->{furl};
-    my %special_headers;
+    my %special_headers = ('content-type' => undef);;
     my ( $minor_version, $code, $msg, $headers, $body ) = $furl->request(
         url     => $self->{base} . $method,
         headers => [
