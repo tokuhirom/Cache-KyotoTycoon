@@ -1,6 +1,6 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
-X.XX
+0.08
 
         - switch WWW::Curl::Easy to Furl.
           Because Furl is ...

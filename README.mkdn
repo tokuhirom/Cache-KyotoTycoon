@@ -77,7 +77,7 @@ Call a procedure of the script language extension.
 _$name_: the name of the procedure to call.
 _\%input_: (optional): arbitrary records.
 
-_Return_: resonse of the script in hashref.
+_Return_: response of the script in hashref.
 
 - my $info = $kt->status()
 

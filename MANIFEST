@@ -28,6 +28,8 @@ t/00_compile.t
 t/live/001_basic.t
 t/live/002_misc.t
 t/live/003_cursor.t
+t/live/004_script.t
+t/myecho.lua
 t/tsvrpc/001_simple.t
 t/Util.pm
 xt/01_podspell.t
