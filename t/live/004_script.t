@@ -12,7 +12,7 @@ test_kt(
         my $port = shift;
         my $kt = Cache::KyotoTycoon->new(port => $port);
         my $report = $kt->report();
-        unless ($report->{conf_kt_features} =~ /\(lua\)/) {
+        unless (($report->{conf_kt_features} ||'') =~ /\(lua\)/) {
             plan skip_all => "this test requires ktserver with --enable-lua";
         }
         subtest 'myecho' => sub {
