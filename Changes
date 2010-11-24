@@ -1,5 +1,9 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.09
+
+        - fixed documenation issue
+
 0.08
 
         - switch WWW::Curl::Easy to Furl.

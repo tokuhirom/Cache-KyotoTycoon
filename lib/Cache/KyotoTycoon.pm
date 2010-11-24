@@ -2,7 +2,7 @@ package Cache::KyotoTycoon;
 use strict;
 use warnings;
 use 5.00800;
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 use Cache::KyotoTycoon::Cursor;
 use TSVRPC::Client;
 
