@@ -52,9 +52,9 @@ _Default_: 0
 
 Getter/Setter of DB name/id.
 
-- my $cursor: KyotoTycoon::Cursor = $kt->make_cursor($cursor_number: Int);
+- my $cursor: Cache::KyotoTycoon::Cursor = $kt->make_cursor($cursor_number: Int);
 
-Create new cursor object. This method returns instance of [KyotoTycoon::Cursor](http://search.cpan.org/perldoc?KyotoTycoon::Cursor).
+Create new cursor object. This method returns instance of [Cache::KyotoTycoon::Cursor](http://search.cpan.org/perldoc?Cache::KyotoTycoon::Cursor).
 
 - my $res = $kt->echo($args)
 
