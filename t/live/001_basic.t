@@ -11,8 +11,12 @@ test_kt(
         my $kt = Cache::KyotoTycoon->new(port => $port);
         subtest 'set, get, remove' => sub {
             is $kt->get("test"), undef, 'not found';
-            $kt->set("test", 'ok');
+            $kt->set("test", 'ok', 60);
             is $kt->get("test"), "ok";
+            my ($v, $xt) = $kt->get("test");
+            is $v, 'ok';
+            ok defined($xt), 'xt is defined value';
+            cmp_ok abs($xt-time()-60), '<', 5;
             is $kt->remove("test", 'ok'), 1;
             is $kt->get("test"), undef;
             is $kt->remove("test", 'ok'), 0;

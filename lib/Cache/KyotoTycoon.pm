@@ -235,9 +235,9 @@ sub get {
     my %args = (DB => $self->db, key => $key);
     my ($code, $body) = $self->{client}->call('get', \%args);
     if ($code eq 450) {
-        return undef; # no value for key
+        return; # no value for key
     } elsif ($code eq 200) {
-        return $body->{value};
+        return wantarray ? ($body->{value}, $body->{xt}) : $body->{value};
     } else {
         die _errmsg($code);
     }
@@ -469,7 +469,7 @@ I<Return> 1 if removed, 0 if record does not exists.
 
 Get I<$key> from database.
 
-I<Return>: the value from database. I<undef> if not exists in database.
+I<Return>: the value from database in scalar context. ($value, $xt) in list context. I<undef> or empty list  if not exists in database.
 
 =item $kt->set_bulk(\%values);
 
