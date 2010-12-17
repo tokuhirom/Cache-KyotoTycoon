@@ -1,5 +1,9 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.10
+
+    - $kt->get() returns $xt on list context.
+
 0.09
 
         - fixed documenation issue

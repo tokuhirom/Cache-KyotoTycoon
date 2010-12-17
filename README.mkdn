@@ -12,7 +12,7 @@ Cache::KyotoTycoon - KyotoTycoon client library
 
 # DESCRIPTION
 
-KyotoTycoon.pm is L<KyotoTycoon|http://fallabs.com/kyototycoon/> client library for Perl5.
+KyotoTycoon.pm is [KyotoTycoon](http://fallabs.com/kyototycoon/) client library for Perl5.
 
 __THIS MODULE IS IN ITS BETA QUALITY. THE API MAY CHANGE IN THE FUTURE__.
 
@@ -161,7 +161,7 @@ _Return_ 1 if removed, 0 if record does not exists.
 
 Get _$key_ from database.
 
-_Return_: the value from database. _undef_ if not exists in database.
+_Return_: the value from database in scalar context. ($value, $xt) in list context. _undef_ or empty list  if not exists in database.
 
 - $kt->set_bulk(\%values);
 
@@ -195,7 +195,7 @@ Tokuhiro Matsuno <tokuhirom AAJKLFJEF GMAIL COM>
 
 # SEE ALSO
 
-- L<KyotoTycoon|http://fallabs.com/kyototycoon/>
+- [KyotoTycoon](http://fallabs.com/kyototycoon/)
 
 - http://fallabs.com/mikio/tech/promenade.cgi?id=99
 
