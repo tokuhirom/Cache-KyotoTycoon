@@ -48,6 +48,7 @@ sub call {
         my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
         $decoded_body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $body, $res_encoding ) : undef;
     }
+    # XXX do not use $headers and $body in your application. I will change the method signature. -- tokuhirom@20101221
     return ($code, $decoded_body, $msg, $headers, $body);
 }
 
