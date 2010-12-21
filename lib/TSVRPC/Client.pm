@@ -43,10 +43,12 @@ sub call {
         content         => $content,
         special_headers => \%special_headers,
     );
-    my $content_type = $special_headers{'content-type'};
-    my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
-    my $dedoded_body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $body, $res_encoding ) : undef;
-    return ($code, $dedoded_body);
+    my $decoded_body;
+    if (my $content_type = $special_headers{'content-type'}) {
+        my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
+        $decoded_body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $body, $res_encoding ) : undef;
+    }
+    return ($code, $decoded_body, $msg, $headers, $body);
 }
 
 1;
