@@ -29,6 +29,7 @@ t/live/001_basic.t
 t/live/002_misc.t
 t/live/003_cursor.t
 t/live/004_script.t
+t/live/005_err.t
 t/myecho.lua
 t/tsvrpc/001_simple.t
 t/Util.pm
