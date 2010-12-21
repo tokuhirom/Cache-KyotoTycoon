@@ -48,8 +48,7 @@ sub call {
         my $res_encoding = TSVRPC::Util::parse_content_type( $content_type );
         $decoded_body = defined($res_encoding) ? TSVRPC::Parser::decode_tsvrpc( $body, $res_encoding ) : undef;
     }
-    # XXX do not use $headers and $body in your application. I will change the method signature. -- tokuhirom@20101221
-    return ($code, $decoded_body, $msg, $headers, $body);
+    return ($code, $decoded_body, $msg);
 }
 
 1;
@@ -100,7 +99,7 @@ User-Agent value.
 
 =back
 
-=item my ($code, $body) = $t->call($method[, \%args[, $encoding]]);
+=item my ($code, $body, $http_message) = $t->call($method[, \%args[, $encoding]]);
 
 Call the $method with \%args.
 
@@ -110,7 +109,7 @@ I<$encoding>: the encoding for TSVRPC call. Following methods are available.
     Q: Quoted-Printable
     U: URI escape
 
-I<Return>: $code: HTTP status code, $body: body hashref.
+I<Return>: $code: HTTP status code, $body: body hashref, $http_message: HTTP message.
 
 =back
 
