@@ -149,6 +149,9 @@ _Return_: value after increment.
 
 compare and swap.
 
+_$oval_: old value
+_$nval_: new value
+
 _Return_: 1 if succeeded, 0 if failed.
 
 - $kt->remove($key);

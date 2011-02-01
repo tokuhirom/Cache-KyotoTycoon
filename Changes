@@ -1,5 +1,10 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.12
+
+    - $cursor->get() returns $xt.(tokuhirom)
+    - doc enhancements(tokuhirom)
+
 0.11
 
     - display better error message.
