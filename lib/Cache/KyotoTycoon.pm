@@ -401,6 +401,9 @@ I<Return>: value after increment.
 
 compare and swap.
 
+I<$oval>: old value
+I<$nval>: new value
+
 I<Return>: 1 if succeeded, 0 if failed.
 
 =item $kt->remove($key);
