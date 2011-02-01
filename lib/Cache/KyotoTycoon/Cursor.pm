@@ -91,7 +91,7 @@ sub get {
     my %args = (CUR => $self->{cursor});
     $args{step} = '' if defined $step;
     my ($code, $body, $msg) = $self->{client}->call('cur_get', \%args);
-    return ($body->{key}, $body->{value}) if $code eq '200';
+    return ($body->{key}, $body->{value}, $body->{xt}) if $code eq '200';
     return if $code eq '450';
     die Cache::KyotoTycoon::_errmsg($code, $msg);
 }
@@ -191,13 +191,13 @@ I<$step>: true to move the cursor to the next record, or false for no move.
 
 I<Return>: value on success, or undef on failure.
 
-=item my ($key, $value) = $kt->get([$step]);
+=item my ($key, $value, $xt) = $kt->get([$step]);
 
 Get a pair of the key and the value of the current record. 
 
 I<$step>: true to move the cursor to the next record, or false for no move.
 
-I<Return>: pair of key and value on success, or empty list on failure.
+I<Return>: pair of key, value and expiration time on success, or empty list on failure.
 
 =item $kt->delete();
 
