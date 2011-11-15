@@ -13,6 +13,6 @@ test_requires 'Test::TCP';
 test_requires 'File::Which';
 
 tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';
-test_requires 'Test::More' => 0.96; # done_testing, subtest
+test_requires 'Test::More' => 0.98; # done_testing, subtest
 author_tests('xt');
 WriteAll;

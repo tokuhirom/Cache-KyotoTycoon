@@ -9,3 +9,13 @@ Build
 _build/
 xshelper.h
 nytprof.out
+tags
+pm_to_blib
+blib/
+META.yml
+MYMETA.*
+META.json
+META.yml
+README
+^inc/
+Cache-KyotoTycoon-*/
