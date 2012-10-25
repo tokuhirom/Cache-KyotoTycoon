@@ -1,5 +1,12 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.13
+
+    - fixed testing issue with recent Test-TCP
+      https://github.com/tokuhirom/test-tcp/issues/3
+      (reported by ktat++)
+    - And modernized package
+
 0.12
 
     - $cursor->get() returns $xt.(tokuhirom)
