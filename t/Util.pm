@@ -16,6 +16,7 @@ sub test_kt {
 
     test_tcp(
         client => $cb,
+        port => Test::TCP::empty_port(10000), # kt cannot use 50000+ number as a port number
         server => $server_cb ? sub { $server_cb->(shift, $ktserver) } : sub {
             my $port = shift;
             exec $ktserver, '-port', $port;

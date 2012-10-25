@@ -9,7 +9,7 @@ requires 'MIME::Base64';
 requires 'Exporter';
 
 test_requires 'Test::Requires';
-test_requires 'Test::TCP';
+test_requires 'Test::TCP' => 1.17;
 test_requires 'File::Which';
 
 tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';
