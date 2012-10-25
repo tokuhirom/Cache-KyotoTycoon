@@ -34,3 +34,5 @@ perltidy.ERR$
 \b\.gitignore
 \.bak$
 ^Cache-KyotoTycoon-
+(\b|\A)\.gitignore
+^inc/
