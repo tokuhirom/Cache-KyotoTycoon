@@ -18,13 +18,14 @@ sub new {
 
     my $host = $args{host} || '127.0.0.1';
     my $port = $args{port} || 1978;
+    my $db   = $args{db}   || 0;
     my $base = "http://${host}:${port}/rpc/";
     my $client = TSVRPC::Client->new(
         timeout    => exists( $args{timeout} ) ? $args{timeout} : 1,
         base       => $base,
     );
     my $self = bless {
-        db        => 0,
+        db        => $db,
         client    => $client,
     }, $class;
     return $self;
