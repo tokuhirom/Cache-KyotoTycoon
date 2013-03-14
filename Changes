@@ -1,5 +1,10 @@
 Revision history for Perl extension Cache::KyotoTycoon
 
+0.14 2013-03-15T07:29:05
+
+    - [BUG FIX] Allow 'db' parameter in constructor argument
+      (Reported by Noritaka Okabe)
+
 0.13
 
     - fixed testing issue with recent Test-TCP
