@@ -61,11 +61,11 @@ This is TSV-RPC parser class.
 
 =over 4
 
-=item my $encoded = TSVRPC::Parser::encode_tsvrpc(\%src[, $encoding]);
+=item C<< my $encoded = TSVRPC::Parser::encode_tsvrpc(\%src[, $encoding]); >>
 
 Encode plain hashref to TSV with $encoding.
 
-=item my $decoded = TSVRPC::Parser::decode_tsvrpc($src[, $encoding]);
+=item C<< my $decoded = TSVRPC::Parser::decode_tsvrpc($src[, $encoding]); >>
 
 Decode TSV to plain hashref.
 

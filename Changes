@@ -2,7 +2,7 @@ Revision history for Perl extension Cache::KyotoTycoon
 
 {{$NEXT}}
 
-0.15 2013-08-13T15:56:46
+0.15 2013-08-13T21:36:12Z
 
     - implemented match_* methods
 

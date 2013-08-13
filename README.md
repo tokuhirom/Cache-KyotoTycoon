@@ -22,25 +22,25 @@ This module throws exception if got __Server Error__.
 
 # CONSTRUCTOR OPTIONS
 
-- timeout
+- `timeout`
 
     Timeout value for each request in seconds.
 
     _Default_: 1 second
 
-- host
+- `host`
 
     Host name of server machine.
 
     _Default_: '127.0.0.1'
 
-- port
+- `port`
 
     Port number of server process. 
 
     _Default_: 1978 
 
-- db
+- `db`
 
     DB name or id.
 
@@ -48,15 +48,15 @@ This module throws exception if got __Server Error__.
 
 # METHODS
 
-- $kt->db()
+- `$kt->db()`
 
     Getter/Setter of DB name/id.
 
-- my $cursor: Cache::KyotoTycoon::Cursor = $kt->make\_cursor($cursor\_number: Int);
+- `my $cursor: Cache::KyotoTycoon::Cursor = $kt->make_cursor($cursor_number: Int);`
 
     Create new cursor object. This method returns instance of [Cache::KyotoTycoon::Cursor](http://search.cpan.org/perldoc?Cache::KyotoTycoon::Cursor).
 
-- my $res = $kt->echo($args)
+- `my $res = $kt->echo($args)`
 
     The server returns $args. This method is useful for testing server.
 
@@ -64,13 +64,13 @@ This module throws exception if got __Server Error__.
 
     _Return_: the copy of $args.
 
-- $kt->report()
+- `$kt->report()`
 
     Get server report.
 
     _Return_: server status information in hashref.
 
-- my $output = $kt->play\_script($name\[, \\%input\]);
+- `my $output = $kt->play_script($name[, \%input]);`
 
     Call a procedure of the script language extension.
 
@@ -79,19 +79,19 @@ This module throws exception if got __Server Error__.
 
     _Return_: response of the script in hashref.
 
-- my $info = $kt->status()
+- `my $info = $kt->status()`
 
     Get database status information.
 
     _Return_: database status information in hashref.
 
-- $kt->clear()
+- `$kt->clear()`
 
     Remove all elements for the storage.
 
     _Return_: Not a useful value.
 
-- $kt->synchronize($hard:Bool, $command);
+- `$kt->synchronize($hard:Bool, $command);`
 
     Synchronize database with file system.
 
@@ -101,7 +101,7 @@ This module throws exception if got __Server Error__.
 
     _Return_: 1 if succeeded, 0 if $command returns false.
 
-- $kt->set($key, $value, $xt);
+- `$kt->set($key, $value, $xt);`
 
     Store _$value_ to _$key_.
 
@@ -109,7 +109,7 @@ This module throws exception if got __Server Error__.
 
     _Return_: not a useful value.
 
-- my $ret = $kt->add($key, $value, $xt);
+- `my $ret = $kt->add($key, $value, $xt);`
 
     Store record. This method is not store if the _$key_ is already in the database.
 
@@ -117,7 +117,7 @@ This module throws exception if got __Server Error__.
 
     _Return_: 1 if succeeded. 0 if $key is already in the db.
 
-- my $ret = $kt->replace($key, $value, $xt);
+- `my $ret = $kt->replace($key, $value, $xt);`
 
     Store the record, ignore if the record is not exists in the database.
 
@@ -125,7 +125,7 @@ This module throws exception if got __Server Error__.
 
     _Return_: 1 if succeeded. 0 if $key is not exists in the database.
 
-- my $ret = $kt->append($key, $value, $xt);
+- `my $ret = $kt->append($key, $value, $xt);`
 
     Store the record, append the $value to existent record if already exists entry.
 
@@ -133,19 +133,19 @@ This module throws exception if got __Server Error__.
 
     _Return_: not useful value. 
 
-- my $ret = $kt->increment($key, $num, $xt);
+- `my $ret = $kt->increment($key, $num, $xt);`
 
     _$num_: incremental
 
     _Return_: value after increment. 
 
-- my $ret = $kt->increment\_double($key, $num, $xt);
+- `my $ret = $kt->increment_double($key, $num, $xt);`
 
     _$num_: incremental
 
     _Return_: value after increment. 
 
-- my $ret = $kt->cas($key, $oval, $nval, $xt);
+- `my $ret = $kt->cas($key, $oval, $nval, $xt);`
 
     compare and swap.
 
@@ -154,37 +154,37 @@ This module throws exception if got __Server Error__.
 
     _Return_: 1 if succeeded, 0 if failed.
 
-- $kt->remove($key);
+- `$kt->remove($key);`
 
     Remove _$key_ from database.
 
     _Return_ 1 if removed, 0 if record does not exists.
 
-- my $val = $kt->get($key);
+- `my $val = $kt->get($key);`
 
     Get _$key_ from database.
 
     _Return_: the value from database in scalar context. ($value, $xt) in list context. _undef_ or empty list  if not exists in database.
 
-- $kt->set\_bulk(\\%values);
+- `$kt->set_bulk(\%values);`
 
     Store multiple values in one time.
 
     _Return_: not useful value.
 
-- $kt->remove\_bulk(\\@keys);
+- `$kt->remove_bulk(\@keys);`
 
     Remove multiple keys in one time.
 
     _Return_: not useful value.
 
-- my $hashref = $kt->get\_bulk(\\@keys);
+- `my $hashref = $kt->get_bulk(\@keys);`
 
     Get multiple values in one time.
 
     _Return_: records in hashref.
 
-- $kt->vacuum(\[$step\]);
+- `$kt->vacuum([$step]);`
 
     Scan the database and eliminate regions of expired records.
 
@@ -192,19 +192,19 @@ This module throws exception if got __Server Error__.
 
     _Return_: not useful.
 
-- my $hashref = $kt->match\_prefix($prefix, $max);
+- `my $hashref = $kt->match_prefix($prefix, $max);`
 
     Get list of matching keys.
 
     _Return_: records in hashref.
 
-- my $hashref = $kt->match\_regex($regex, $max);
+- `my $hashref = $kt->match_regex($regex, $max);`
 
     Get list of matching keys.
 
     _Return_: records in hashref.
 
-- my $hashref = $kt->match\_similar($origin, $range, $utf8, $max);
+- `my $hashref = $kt->match_similar($origin, $range, $utf8, $max);`
 
     Get list of matching keys.
 
@@ -216,8 +216,8 @@ Tokuhiro Matsuno <tokuhirom AAJKLFJEF@ GMAIL COM>
 
 # SEE ALSO
 
-- [KyotoTycoon](http://fallabs.com/kyototycoon/)
-- http://fallabs.com/mikio/tech/promenade.cgi?id=99
+- `[KyotoTycoon](http://fallabs.com/kyototycoon/)`
+- `http://fallabs.com/mikio/tech/promenade.cgi?id=99`
 
 # LICENSE
 
