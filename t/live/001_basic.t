@@ -61,6 +61,11 @@ test_kt(
             is $kt->cas('cas_t1', "c", undef), 1;
             is $kt->get('cas_t1'), undef, 'removed';
         };
+        subtest 'match' => sub {
+            is $kt->match_prefix('inc'), 2;
+            is $kt->match_regex('/^inc/', 1), 1;
+            is $kt->match_similar('inc_t1'), 2;
+        };
         subtest 'bulk' => sub {
             $kt->clear;
             is $kt->set_bulk({a => 1, b => 2, c => 3}), 3;
