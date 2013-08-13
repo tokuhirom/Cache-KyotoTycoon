@@ -2,7 +2,7 @@ package Cache::KyotoTycoon;
 use strict;
 use warnings;
 use 5.008001;
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 use Cache::KyotoTycoon::Cursor;
 use TSVRPC::Client;
 use Carp ();
@@ -240,6 +240,57 @@ sub vacuum {
     return;
 }
 
+sub match_prefix {
+    my ($self, $prefix, $max) = @_;
+    my %args = (DB => $self->db, prefix => $prefix);
+    $args{max} = $max if defined $max;
+    my ($code, $body, $msg) = $self->{client}->call('match_prefix', \%args);
+    Carp::croak _errmsg($code, $msg) unless $code eq '200';
+    my %ret;
+    while (my ($k, $v) = each %$body) {
+        if ($k =~ /^_(.+)$/) {
+            $ret{$1} = $v;
+        }
+    }
+    die "fatal error" unless keys(%ret) == $body->{num};
+    return wantarray ? %ret : \%ret;
+}
+
+sub match_regex {
+    my ($self, $regex, $max) = @_;
+    my %args = (DB => $self->db, regex => $regex);
+    $args{max} = $max if defined $max;
+    my ($code, $body, $msg) = $self->{client}->call('match_regex', \%args);
+    Carp::croak _errmsg($code, $msg) unless $code eq '200';
+    my %ret;
+    while (my ($k, $v) = each %$body) {
+        if ($k =~ /^_(.+)$/) {
+            $ret{$1} = $v;
+        }
+    }
+    die "fatal error" unless keys(%ret) == $body->{num};
+    return wantarray ? %ret : \%ret;
+}
+
+sub match_similar {
+    my ($self, $origin, $range, $utf8, $max) = @_;
+    my %args = (DB => $self->db, origin => $origin);
+    $args{range} = $max if defined $range;
+    $args{utf}   = 1    if $utf8;
+    $args{max}   = $max if defined $max;
+    my ($code, $body, $msg) = $self->{client}->call('match_regex', \%args);
+    Carp::croak _errmsg($code, $msg) unless $code eq '200';
+    my %ret;
+
+    while (my ($k, $v) = each %$body) {
+        if ($k =~ /^_(.+)$/) {
+            $ret{$1} = $v;
+        }
+    }
+    die "fatal error" unless keys(%ret) == $body->{num};
+    return wantarray ? %ret : \%ret;
+}
+
 1;
 __END__
 
@@ -444,6 +495,24 @@ Scan the database and eliminate regions of expired records.
 I<input>: step: (optional): the number of steps. If it is omitted or not more than 0, the whole region is scanned.
 
 I<Return>: not useful.
+
+=item my $hashref = $kt->match_prefix($prefix, $max);
+
+Get list of matching keys.
+
+I<Return>: records in hashref.
+
+=item my $hashref = $kt->match_regex($regex, $max);
+
+Get list of matching keys.
+
+I<Return>: records in hashref.
+
+=item my $hashref = $kt->match_similar($origin, $range, $utf8, $max);
+
+Get list of matching keys.
+
+I<Return>: records in hashref.
 
 =back
 
