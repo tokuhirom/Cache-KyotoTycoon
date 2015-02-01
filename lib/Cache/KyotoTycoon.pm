@@ -278,7 +278,7 @@ sub match_similar {
     $args{range} = $max if defined $range;
     $args{utf}   = 1    if $utf8;
     $args{max}   = $max if defined $max;
-    my ($code, $body, $msg) = $self->{client}->call('match_regex', \%args);
+    my ($code, $body, $msg) = $self->{client}->call('match_similar', \%args);
     Carp::croak _errmsg($code, $msg) unless $code eq '200';
     my %ret;
 
