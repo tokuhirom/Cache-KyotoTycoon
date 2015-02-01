@@ -62,9 +62,9 @@ test_kt(
             is $kt->get('cas_t1'), undef, 'removed';
         };
         subtest 'match' => sub {
-            is $kt->match_prefix('inc'), 2;
-            is $kt->match_regex('/^inc/', 1), 1;
-            is $kt->match_similar('inc_t1'), 2;
+            is scalar keys %{$kt->match_prefix('inc')}, 2;
+            is scalar keys %{$kt->match_regex('^inc', 1)}, 1;
+            is scalar keys %{$kt->match_similar('inc_t1')}, 2;
         };
         subtest 'bulk' => sub {
             $kt->clear;
