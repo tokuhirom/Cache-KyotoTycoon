@@ -2,6 +2,20 @@ Revision history for Perl extension Cache::KyotoTycoon
 
 {{$NEXT}}
 
+0.16 2015-02-02T01:12:53Z
+
+    commit 7490ed6222a762809707d4b10530098eaa61d8e8
+    Author: ktat <ktat.is@gmail.com>
+    Date:   Sat Jan 31 16:35:21 2015 +0900
+
+        fix test for match. match returns hash ref.
+
+    commit b19e204f3f4f0493a9ee2f24e05317700f162fbd
+    Author: ktat <ktat.is@gmail.com>
+    Date:   Sat Jan 31 16:32:53 2015 +0900
+
+        change call argument from match_regex to match_similar for match_similar method
+
 0.15 2013-08-13T21:36:12Z
 
     - implemented match_* methods

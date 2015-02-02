@@ -14,11 +14,11 @@ Cache::KyotoTycoon - KyotoTycoon client library
 
 KyotoTycoon.pm is [KyotoTycoon](http://fallabs.com/kyototycoon/) client library for Perl5.
 
-__THIS MODULE IS IN ITS BETA QUALITY. THE API MAY CHANGE IN THE FUTURE__.
+**THIS MODULE IS IN ITS BETA QUALITY. THE API MAY CHANGE IN THE FUTURE**.
 
 # ERROR HANDLING POLICY
 
-This module throws exception if got __Server Error__.
+This module throws exception if got **Server Error**.
 
 # CONSTRUCTOR OPTIONS
 
@@ -54,7 +54,7 @@ This module throws exception if got __Server Error__.
 
 - `my $cursor: Cache::KyotoTycoon::Cursor = $kt->make_cursor($cursor_number: Int);`
 
-    Create new cursor object. This method returns instance of [Cache::KyotoTycoon::Cursor](http://search.cpan.org/perldoc?Cache::KyotoTycoon::Cursor).
+    Create new cursor object. This method returns instance of [Cache::KyotoTycoon::Cursor](https://metacpan.org/pod/Cache::KyotoTycoon::Cursor).
 
 - `my $res = $kt->echo($args)`
 

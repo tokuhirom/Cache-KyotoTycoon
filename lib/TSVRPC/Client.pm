@@ -2,7 +2,7 @@ package TSVRPC::Client;
 use strict;
 use warnings;
 use 5.008001;
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 use TSVRPC::Parser;
 use TSVRPC::Util;
 use Furl::HTTP qw/HEADERS_NONE/;
